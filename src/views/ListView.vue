@@ -22,12 +22,33 @@ export default {
   <div>
     <h1>List</h1>
 
-    <input v-model="input.name" type="text" @keyup.enter="addList({ ...input }); input.name = ''" />
+    <input
+      class="input"
+      v-model="input.name"
+      type="text"
+      @keyup.enter="
+        ($event) => {
+          addList({ ...input })
+          input.name = ''
+        }
+      "
+      placeholder="add new list"
+    />
 
-    <ol>
+    <ol class="list">
       <template v-for="(item, index) in getList" :key="index">
         <li>{{ item.name }}</li>
       </template>
     </ol>
   </div>
 </template>
+
+<style scoped>
+.input {
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+.list {
+  margin-block: 0.5rem;
+}
+</style>
