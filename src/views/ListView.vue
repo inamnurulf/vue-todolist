@@ -1,26 +1,19 @@
 <script>
+import { useListStore } from '@/stores/list'
+import { mapState, mapActions } from 'pinia'
+
 export default {
   name: 'ListView',
   data: () => ({
     input: {
       name: ''
-    },
-    list: [
-      {
-        name: 'First list'
-      },
-      {
-        name: 'Second list'
-      }
-    ]
-  }),
-  methods: {
-    addList() {
-      if (this.input.name) {
-        this.list.push({ ...this.input })
-        this.input.name = ''
-      }
     }
+  }),
+  computed: {
+    ...mapState(useListStore, ['getList'])
+  },
+  methods: {
+    ...mapActions(useListStore, ['addList'])
   }
 }
 </script>
@@ -29,10 +22,10 @@ export default {
   <div>
     <h1>List</h1>
 
-    <input v-model="input.name" type="text" @keyup.enter="addList" />
+    <input v-model="input.name" type="text" @keyup.enter="addList({ ...input }); input.name = ''" />
 
     <ol>
-      <template v-for="(item, index) in list" :key="index">
+      <template v-for="(item, index) in getList" :key="index">
         <li>{{ item.name }}</li>
       </template>
     </ol>
