@@ -13,7 +13,13 @@ export default {
         name: 'Second list'
       }
     ]
-  })
+  }),
+  methods: {
+    addList() {
+      this.list.push({ ...this.input })
+      this.input.name = ''
+    }
+  }
 }
 </script>
 
@@ -21,7 +27,7 @@ export default {
   <div>
     <h1>List</h1>
 
-    <input v-model="input.name" type="text" @keyup.enter="list.push({ ...input })" />
+    <input v-model="input.name" type="text" @keyup.enter="addList" />
 
     <ol>
       <template v-for="(item, index) in list" :key="index">
