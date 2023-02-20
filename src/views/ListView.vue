@@ -16,8 +16,10 @@ export default {
   }),
   methods: {
     addList() {
-      this.list.push({ ...this.input })
-      this.input.name = ''
+      if (this.input.name) {
+        this.list.push({ ...this.input })
+        this.input.name = ''
+      }
     }
   }
 }
