@@ -51,6 +51,7 @@ export default {
         v-model="input.name"
         class="input"
         placeholder="add new"
+        required
       ></base-input>
       <br />
 
@@ -59,6 +60,7 @@ export default {
         v-model="input.description"
         class="input"
         placeholder="desccription"
+        required
       ></base-input>
       <br />
 
