@@ -1,6 +1,15 @@
 <script setup>
+// use script setup api
+import { computed } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
+
 import HelloWorld from './components/HelloWorld.vue'
+
+// import auth store
+import { useAuthStore } from '@/stores/auth'
+
+// set username from auth store with computed property
+const username = computed(() => useAuthStore().getUsername)
 </script>
 
 <template>
@@ -20,6 +29,12 @@ import HelloWorld from './components/HelloWorld.vue'
         <RouterLink to="/">Home</RouterLink>
         <!-- programmatic navigation using router param -->
         <RouterLink :to="{ name: 'list' }">List</RouterLink>
+        <!-- more complex dynamic route with param -->
+        <RouterLink
+          :to="{ name: 'Authenticated', params: { id: username ?? '' } }"
+        >
+          Profile
+        </RouterLink>
         <RouterLink to="/about">About</RouterLink>
       </nav>
     </div>
