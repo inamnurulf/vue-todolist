@@ -41,7 +41,7 @@ export default {
       console.log(event)
 
       // pass input to action
-      // determine 
+      // determine
       if (this.editing === false) {
         this.addList({ ...this.input })
       } else {
@@ -101,7 +101,7 @@ export default {
       <input v-model="input.completed" type="checkbox" /> Completed
       <br />
 
-      <button type="submit">{{ editing !== false ? 'Edit' : 'Add'}}</button>
+      <button type="submit">{{ editing !== false ? 'Edit' : 'Add' }}</button>
       <button type="reset">Cancel</button>
     </form>
 
@@ -135,7 +135,7 @@ export default {
   </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .input {
   padding: 0.5rem;
   font-size: 1rem;
@@ -146,10 +146,12 @@ export default {
 .strike {
   text-decoration: line-through;
 }
-button.red {
-  color: red;
-}
-button.orange {
-  color: orange;
+button {
+  .red {
+    color: red;
+  }
+  .orange {
+    color: orange;
+  }
 }
 </style>
