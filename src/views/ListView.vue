@@ -55,6 +55,14 @@ export default {
       this.editing = index
       // set input value from getters by index params
       this.input = { ...this.getDetail(index) }
+    },
+    // toggle completed
+    toggleCompleted(index) {
+      const detail = this.getDetail(index)
+      this.editIndex(index, {
+        ...detail,
+        completed: !detail.completed
+      })
     }
   }
 }
@@ -96,7 +104,10 @@ export default {
 
     <ol class="list">
       <template v-for="(item, index) in getList" :key="index">
-        <li>
+        <li
+          @dblclick="() => toggleCompleted(index)"
+          :class="{ strike: item.completed }"
+        >
           <!-- trigger delete by index -->
           <button
             class="red"
@@ -128,6 +139,9 @@ export default {
 }
 .list {
   margin-block: 0.5rem;
+}
+.strike {
+  text-decoration: line-through;
 }
 button.red {
   color: red;
