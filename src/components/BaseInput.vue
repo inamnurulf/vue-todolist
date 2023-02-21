@@ -24,3 +24,10 @@ export default {
     @input="($event) => $emit('update:modelValue', $event.target.value)"
   />
 </template>
+
+<style scoped>
+.input {
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+</style>
