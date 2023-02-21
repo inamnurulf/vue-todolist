@@ -18,7 +18,8 @@ import HelloWorld from './components/HelloWorld.vue'
 
       <nav>
         <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/list">List</RouterLink>
+        <!-- programmatic navigation using router param -->
+        <RouterLink :to="{ name: 'list' }">List</RouterLink>
         <RouterLink to="/about">About</RouterLink>
       </nav>
     </div>
