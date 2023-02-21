@@ -16,6 +16,9 @@ export const useListStore = defineStore({
   actions: {
     addList(data) {
       this.list = [...this.list, data]
+    },
+    removeIndex(index) {
+      this.list = this.list.filter((val, idx) => index !== idx)
     }
   },
   getters: {
