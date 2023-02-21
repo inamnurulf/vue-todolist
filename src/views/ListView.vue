@@ -2,6 +2,9 @@
 import { useListStore } from '@/stores/list'
 import { mapState, mapActions } from 'pinia'
 
+// import component
+import BaseInput from '@/components/BaseInput.vue'
+
 const initialInput = {
   name: '',
   completed: false
@@ -12,6 +15,10 @@ export default {
   data: () => ({
     input: { ...initialInput }
   }),
+  // declate component
+  components: {
+    BaseInput
+  },
   computed: {
     // import all defined getters via mapState helper
     ...mapState(useListStore, ['getList'])
@@ -38,22 +45,15 @@ export default {
     <h1>List</h1>
 
     <form @submit.prevent="($event) => addForm($event)" method="post">
-      <input
-        class="input"
+      <!-- use component using kebab-case -->
+      <base-input
         v-model="input.name"
-        type="text"
-        placeholder="add new list"
-      />
+        class="input"
+        placeholder="add new"
+      ></base-input>
       <br />
 
-      <input
-        v-model="input.completed"
-        type="checkbox"
-        name="completed"
-        id="completed"
-      />
-      Completed
-
+      <input v-model="input.completed" type="checkbox" /> Completed
       <br />
 
       <button type="submit">Add</button>
