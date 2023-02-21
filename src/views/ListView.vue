@@ -14,7 +14,8 @@ const initialInput = {
 export default {
   name: 'ListView',
   data: () => ({
-    input: { ...initialInput }
+    input: { ...initialInput },
+    editing: false
   }),
   // declate component
   components: {
@@ -22,20 +23,38 @@ export default {
   },
   computed: {
     // import all defined getters via mapState helper
-    ...mapState(useListStore, ['getList'])
+    ...mapState(useListStore, ['getList', 'getDetail'])
   },
   methods: {
     // import all defined action via mapActions helper
-    ...mapActions(useListStore, ['addList', 'removeIndex']),
+    ...mapActions(useListStore, ['addList', 'editIndex', 'removeIndex']),
+    // reset form
+    resetForm() {
+      // Reset Input with initial value
+      Object.assign(this.input, initialInput)
+
+      // reset editing state
+      this.editing = false
+    },
     // submit form
     addForm(event) {
       console.log(event)
 
       // pass input to action
-      this.addList({ ...this.input })
+      if (this.editing === false) {
+        this.addList({ ...this.input })
+      } else {
+        this.editIndex(this.editing, { ...this.input })
+      }
 
-      // Reset Input with initial value
-      Object.assign(this.input, initialInput)
+      // call reset form
+      this.resetForm()
+    },
+    detailList(index) {
+      // set editing to true from index params
+      this.editing = index
+      // set input value from getters by index params
+      this.input = { ...this.getDetail(index) }
     }
   }
 }
@@ -45,7 +64,11 @@ export default {
   <div>
     <h1>List</h1>
 
-    <form @submit.prevent="($event) => addForm($event)" method="post">
+    <form
+      @submit.prevent="($event) => addForm($event)"
+      method="post"
+      @reset="() => resetForm()"
+    >
       <!-- use component using kebab-case -->
       <base-input
         v-model="input.name"
@@ -68,13 +91,27 @@ export default {
       <br />
 
       <button type="submit">Add</button>
+      <button type="reset">Cancel</button>
     </form>
 
     <ol class="list">
       <template v-for="(item, index) in getList" :key="index">
         <li>
-          <button class="red" @click="($event) => removeIndex(index)">
+          <!-- trigger delete by index -->
+          <button
+            class="red"
+            @click="() => removeIndex(index)"
+            :disabled="editing !== false"
+          >
             &times;
+          </button>
+          <!-- trigger edit by index -->
+          <button
+            class="orange"
+            @click="() => detailList(index)"
+            :disabled="editing !== false"
+          >
+            &#9998;
           </button>
           {{ item.name }}
           {{ item?.description ? `- ${item.description}` : '' }}
@@ -94,5 +131,8 @@ export default {
 }
 button.red {
   color: red;
+}
+button.orange {
+  color: orange;
 }
 </style>
