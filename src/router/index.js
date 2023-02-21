@@ -23,6 +23,23 @@ const router = createRouter({
       component: () => import('@/views/ListView.vue')
     },
     {
+      path: '/profile',
+      // nested routes
+      children: [
+        {
+          path: '',
+          name: 'Login',
+          component: () => import('@/views/Profile/LoginView.vue')
+        },
+        {
+          // optional and dynamic params
+          path: 'detail/:id?',
+          name: 'Authenticated',
+          component: () => import('@/views/Profile/AuthenticatedView.vue')
+        }
+      ]
+    },
+    {
       // get all routes
       path: '/:pathMatch(.*)*',
       name: 'Match All',
