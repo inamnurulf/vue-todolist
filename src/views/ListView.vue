@@ -7,6 +7,7 @@ import BaseInput from '@/components/BaseInput.vue'
 
 const initialInput = {
   name: '',
+  description: '',
   completed: false
 }
 
@@ -53,6 +54,14 @@ export default {
       ></base-input>
       <br />
 
+      <!-- can be used many times -->
+      <base-input
+        v-model="input.description"
+        class="input"
+        placeholder="desccription"
+      ></base-input>
+      <br />
+
       <input v-model="input.completed" type="checkbox" /> Completed
       <br />
 
@@ -61,7 +70,10 @@ export default {
 
     <ol class="list">
       <template v-for="(item, index) in getList" :key="index">
-        <li>{{ item.name }}</li>
+        <li>
+          {{ item.name }}
+          {{ item?.description ? `- ${item.description}` : '' }}
+        </li>
       </template>
     </ol>
   </div>
