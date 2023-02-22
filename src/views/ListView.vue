@@ -6,8 +6,9 @@ import { mapState, mapActions } from 'pinia'
 import BaseInput from '@/components/BaseInput.vue'
 
 const initialInput = {
-  name: '',
+  title: '',
   description: '',
+  category: '',
   completed: false
 }
 
@@ -25,9 +26,17 @@ export default {
     // import all defined getters via mapState helper
     ...mapState(useListStore, ['getList', 'getDetail'])
   },
+  async mounted() {
+    await this.a$list()
+  },
   methods: {
     // import all defined action via mapActions helper
-    ...mapActions(useListStore, ['addList', 'editIndex', 'removeIndex']),
+    ...mapActions(useListStore, [
+      'a$list',
+      'a$add',
+      'editIndex',
+      'removeIndex'
+    ]),
     // reset form
     resetForm() {
       // Reset Input with initial value
@@ -43,7 +52,7 @@ export default {
       // pass input to action
       // determine
       if (this.editing === false) {
-        this.addList({ ...this.input })
+        this.a$add({ ...this.input })
       } else {
         this.editIndex(this.editing, { ...this.input })
       }
@@ -82,7 +91,7 @@ export default {
     >
       <!-- use component using kebab-case -->
       <base-input
-        v-model="input.name"
+        v-model="input.title"
         class="input"
         placeholder="add new"
         required
@@ -94,6 +103,15 @@ export default {
         v-model="input.description"
         class="input"
         placeholder="desccription"
+        required
+      ></base-input>
+      <br />
+
+      <!-- can be used many times -->
+      <base-input
+        v-model="input.category"
+        class="input"
+        placeholder="category"
         required
       ></base-input>
       <br />
@@ -127,7 +145,7 @@ export default {
           >
             &#9998;
           </button>
-          {{ item.name }}
+          {{ item.title }}
           {{ item?.description ? `- ${item.description}` : '' }}
         </li>
       </template>
