@@ -4,6 +4,7 @@ import { mapState, mapActions } from 'pinia'
 
 // import component
 import BaseInput from '@/components/BaseInput.vue'
+import BaseTable from '@/components/BaseTable.vue'
 
 const initialInput = {
   title: '',
@@ -16,11 +17,22 @@ export default {
   name: 'ListView',
   data: () => ({
     input: { ...initialInput },
-    editing: false
+    editing: false,
+    // UI
+    table: {
+      columns: ['id', 'title', 'description', 'completed'],
+      actions: [
+        {
+          title: 'Handle',
+          event: 'handle-event'
+        }
+      ]
+    }
   }),
   // declate component
   components: {
-    BaseInput
+    BaseInput,
+    BaseTable
   },
   computed: {
     // import all defined getters via mapState helper
@@ -75,6 +87,11 @@ export default {
         // take completed value then toggle it
         completed: !detail.completed
       })
+    },
+
+    // handle event
+    handleLogEvent(row) {
+      console.log(row)
     }
   }
 }
@@ -123,6 +140,8 @@ export default {
       <button type="reset">Cancel</button>
     </form>
 
+    <hr />
+
     <ol class="list">
       <template v-for="(item, index) in getList" :key="index">
         <li
@@ -150,6 +169,15 @@ export default {
         </li>
       </template>
     </ol>
+
+    <hr />
+
+    <base-table
+      :data="getList"
+      :columns="table.columns"
+      :actions="table.actions"
+      @handle-event="handleLogEvent"
+    />
   </div>
 </template>
 
