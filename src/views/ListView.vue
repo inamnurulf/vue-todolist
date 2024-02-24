@@ -18,7 +18,6 @@ export default {
   data: () => ({
     input: { ...initialInput },
     editing: false,
-    // UI
     table: {
       columns: ['id', 'title', 'description', 'completed'],
       actions: [
