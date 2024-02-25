@@ -34,6 +34,14 @@ export const d$auth = defineStore({
       } catch ({ error, message }) {
         throw message ?? error
       }
+    },
+    async a$signUp(body) {
+      try {
+        await s$auth.register(body)
+        return true
+      } catch ({ error, message }) {
+        throw message ?? error
+      }
     }
   },
   getters: {

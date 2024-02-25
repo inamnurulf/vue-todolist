@@ -46,6 +46,18 @@ const router = createRouter({
       ]
     },
     {
+      path: '/signUp',
+      name: 'SignUp',
+      component: () => import('@/views/Profile/SignUpView.vue'),
+      meta: { guestRoutes: true }
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('@/views/Profile/LoginView.vue'),
+      meta: { guestRoutes: true }
+    },
+    {
       // get all routes
       path: '/:pathMatch(.*)*',
       name: 'Match All',
@@ -61,8 +73,10 @@ router.beforeEach((to, from, next) => {
   // redirect to login
   if (to.meta.auth && !loggedIn) {
     next({ name: 'Login' })
+  } else if (to.meta.guestRoutes && loggedIn) {
+    // redirect to a different route for logged-in users trying to access guest routes
+    next({ name: 'home' })
   } else {
-    // else then proceeds
     next()
   }
 })

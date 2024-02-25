@@ -73,21 +73,39 @@
 
           <li class="items-center">
             <RouterLink
+              v-if="isLoggedIn"
               to="/list"
               class="text-xs uppercase py-3 font-bold block flex items-center"
             >
               <i class="pi pi-list text-black mx-3 text-lg"></i>
               List
             </RouterLink>
+            <RouterLink
+              v-else
+              to="/login"
+              class="text-xs uppercase py-3 font-bold block flex items-center"
+            >
+              <i class="pi pi-sign-in text-black mx-3 text-lg"></i>
+              Sign In
+            </RouterLink>
           </li>
 
           <li class="items-center">
             <RouterLink
+              v-if="isLoggedIn"
               :to="{ name: 'Authenticated', params: { id: username ?? '' } }"
               class="text-xs uppercase py-3 font-bold block flex items-center"
             >
               <i class="pi pi-user text-black mx-3 text-lg"></i>
               Profile
+            </RouterLink>
+            <RouterLink
+              v-else
+              to="/signUp"
+              class="text-xs uppercase py-3 font-bold block flex items-center"
+            >
+              <i class="pi pi-user-plus text-black mx-3 text-lg"></i>
+              Sign Up
             </RouterLink>
           </li>
 
@@ -107,10 +125,7 @@
 </template>
 
 <script>
-// import { d$auth } from '@/stores/auth'
-
-// d$auth().a$setUser()
-// const username = computed(() => d$auth().g$user?.id)
+import { d$auth } from '@/stores/auth'
 
 export default {
   data() {
@@ -123,6 +138,11 @@ export default {
     toggleCollapseShow: function (classesShow, classesHide) {
       this.collapseShow = classesShow
       this.collapseHide = classesHide
+    }
+  },
+  computed: {
+    isLoggedIn() {
+      return d$auth().isLoggedIn
     }
   }
 }
