@@ -4,7 +4,6 @@ import { mapState, mapActions } from 'pinia'
 
 // import component
 import BaseInput from '@/components/BaseInput.vue'
-import BaseTable from '@/components/BaseTable.vue'
 
 const initialInput = {
   title: '',
@@ -30,8 +29,7 @@ export default {
   }),
   // declate component
   components: {
-    BaseInput,
-    BaseTable
+    BaseInput
   },
   computed: {
     // import all defined getters via mapState helper
@@ -97,86 +95,95 @@ export default {
 </script>
 
 <template>
-  <div>
-    <h1>List</h1>
+  <div class="p-4">
+    <div class="bg-white p-4 rounded-lg">
+      <h1 class="text-2xl font-bold mb-4">Add New Data</h1>
+      <form
+        @submit.prevent="($event) => addForm($event)"
+        method="post"
+        @reset="() => resetForm()"
+        class="mb-4"
+      >
+        <div class="flex flex-col p-4">
+          <base-input
+            v-model="input.title"
+            class="input mb-2 border rounded-lg p-2"
+            placeholder="add new"
+            required
+          ></base-input>
 
-    <form
-      @submit.prevent="($event) => addForm($event)"
-      method="post"
-      @reset="() => resetForm()"
-    >
-      <!-- use component using kebab-case -->
-      <base-input
-        v-model="input.title"
-        class="input"
-        placeholder="add new"
-        required
-      ></base-input>
-      <br />
+          <textarea
+            v-model="input.description"
+            class="input mb-2 border rounded-lg p-2 min-h-[10vh]"
+            placeholder="description"
+            required
+          ></textarea>
 
-      <!-- can be used many times -->
-      <base-input
-        v-model="input.description"
-        class="input"
-        placeholder="desccription"
-        required
-      ></base-input>
-      <br />
+          <div>
+            <input
+              v-model="input.completed"
+              type="checkbox"
+              class="mr-2"
+              id="completed"
+            />
+            <label for="completed">Completed</label>
+          </div>
+        </div>
 
-      <!-- can be used many times -->
-      <base-input
-        v-model="input.category"
-        class="input"
-        placeholder="category"
-        required
-      ></base-input>
-      <br />
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 mr-2">
+          {{ editing !== false ? 'Edit' : 'Add' }}
+        </button>
 
-      <input v-model="input.completed" type="checkbox" /> Completed
-      <br />
+        <button type="reset" class="bg-gray-300 text-gray-700 px-4 py-2">
+          Cancel
+        </button>
+      </form>
+    </div>
+    <div class="bg-white rounded-lg mt-4 p-4">
+      <h1 class="text-2xl font-bold mb-4">List</h1>
 
-      <button type="submit">{{ editing !== false ? 'Edit' : 'Add' }}</button>
-      <button type="reset">Cancel</button>
-    </form>
-
-    <hr />
-
-    <ol class="list">
-      <template v-for="(item, index) in getList" :key="index">
-        <li
-          @dblclick="() => toggleCompleted(index)"
-          :class="{ strike: item.completed }"
-        >
-          <!-- trigger delete by index -->
-          <button
-            class="red"
-            @click="() => removeIndex(index)"
-            :disabled="editing !== false"
+      <ol class="list">
+        <template v-for="(item, index) in getList" :key="index">
+          <hr class="my-2" />
+          <li
+            @dblclick="() => toggleCompleted(index)"
+            :class="{ 'line-through': item.completed }"
+            class="mb-2"
           >
-            &times;
-          </button>
-          <!-- trigger edit by index -->
-          <button
-            class="orange"
-            @click="() => detailList(index)"
-            :disabled="editing !== false"
-          >
-            &#9998;
-          </button>
-          {{ item.title }}
-          {{ item?.description ? `- ${item.description}` : '' }}
-        </li>
-      </template>
-    </ol>
+            <div class="flex justify-between">
+              <div class="flex flex-col">
+                <div class="text-lg font-bold">
+                  {{ item.title }}
+                  <i v-if="item.completed" class="pi pi-check text-lg"></i>
+                </div>
+                <div class="text-base">
+                  {{ item?.description ? `${item.description}` : '' }}
+                </div>
+              </div>
+              <div class="flex items-center">
+                <button
+                  class="pointer hover:bg-red-500 text-red-500 hover:text-white p-1 rounded-lg mx-2"
+                  @click="() => removeIndex(index)"
+                  :disabled="editing !== false"
+                >
+                  <i class="pi pi-trash text-lg"></i>
+                </button>
 
-    <hr />
+                <button
+                  class="hover:bg-blue-500 text-blue-500 hover:text-white p-1 rounded-lg mx-2"
+                  @click="() => detailList(index)"
+                  :disabled="editing !== false"
+                >
+                  <i class="pi pi-file-edit text-lg"></i>
+                </button>
+              </div>
+            </div>
+          </li>
+        </template>
+      </ol>
 
-    <base-table
-      :data="getList"
-      :columns="table.columns"
-      :actions="table.actions"
-      @handle-event="handleLogEvent"
-    />
+      <hr class="my-2" />
+    </div>
   </div>
 </template>
 

@@ -17,7 +17,7 @@ d$auth().a$setUser()
   <div class="md:flex min-w-[100vw] backgroundsection">
     <SideBar />
     <div class="w-full h-screen">
-      <div class="h-[100%] w-full flex justify-center items-center">
+      <div class="h-[100%] w-full">
         <RouterView />
       </div>
     </div>

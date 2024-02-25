@@ -12,7 +12,7 @@
         v-on:click="toggleCollapseShow('bg-white m-2 py-3 px-6', 'hidden')"
         v-bind:class="collapseHide"
       >
-        =
+        <i class="pi pi-bars"></i>
       </button>
       <!-- Brand -->
       <router-link
@@ -62,7 +62,11 @@
 
         <ul class="md:flex-col md:min-w-full flex flex-col list-none">
           <li class="items-center">
-            <RouterLink to="/" class="text-xs uppercase py-3 font-bold block">
+            <RouterLink
+              to="/"
+              class="text-xs uppercase py-3 font-bold block flex items-center"
+            >
+              <i class="pi pi-home text-black mx-3 text-lg"></i>
               Home
             </RouterLink>
           </li>
@@ -70,8 +74,9 @@
           <li class="items-center">
             <RouterLink
               to="/list"
-              class="text-xs uppercase py-3 font-bold block"
+              class="text-xs uppercase py-3 font-bold block flex items-center"
             >
+              <i class="pi pi-list text-black mx-3 text-lg"></i>
               List
             </RouterLink>
           </li>
@@ -79,8 +84,9 @@
           <li class="items-center">
             <RouterLink
               :to="{ name: 'Authenticated', params: { id: username ?? '' } }"
-              class="text-xs uppercase py-3 font-bold block"
+              class="text-xs uppercase py-3 font-bold block flex items-center"
             >
+              <i class="pi pi-user text-black mx-3 text-lg"></i>
               Profile
             </RouterLink>
           </li>
@@ -88,8 +94,9 @@
           <li class="items-center">
             <RouterLink
               to="/about"
-              class="text-xs uppercase py-3 font-bold block"
+              class="text-xs uppercase py-3 font-bold block flex items-center"
             >
+              <i class="pi pi-question text-black mx-3 text-lg"></i>
               About
             </RouterLink>
           </li>

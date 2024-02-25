@@ -47,35 +47,38 @@ export default {
 </script>
 
 <template>
-  <div>
-    <h1>Login</h1>
-
+  <div class="w-full h-screen flex flex-col justify-center items-center mt-10">
     <!-- conditional rendering using v-if directive -->
     <form
       v-if="!isLoggedIn"
+      class="bg-white shadow-md rounded-lg px-8 pt-6 pb-8 mb-4 flex flex-col"
       method="post"
       @submit.prevent="() => submitForm()"
       @reset="() => resetForm()"
     >
+      <h1 class="text-2xl font-bold mb-4">Login</h1>
       <base-input
-        class="input"
+        class="mb-4 border rounded-lg p-3"
         v-model="input.username"
-        placeholder="input username"
+        placeholder="Input username"
         required
       />
-      <br />
       <base-input
-        class="input"
+        class="mb-4 border rounded-lg p-3"
         v-model="input.password"
-        placeholder="input password"
+        placeholder="Input password"
         type="password"
         required
       />
-      <br />
-      <button type="submit">Login</button>
+      <button
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        type="submit"
+      >
+        Login
+      </button>
     </form>
 
     <!-- conditional rendering using v-else directive -->
-    <h3 v-else>{{ g$user?.id }}</h3>
+    <h3 v-else class="text-xl font-semibold">{{ g$user?.id }}</h3>
   </div>
 </template>

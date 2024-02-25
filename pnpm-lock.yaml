@@ -14,6 +14,9 @@ dependencies:
   pinia:
     specifier: ^2.1.7
     version: 2.1.7(vue@3.4.15)
+  primeicons:
+    specifier: ^6.0.1
+    version: 6.0.1
   sass:
     specifier: ^1.70.0
     version: 1.70.0
@@ -1813,6 +1816,10 @@ packages:
     engines: {node: '>=14'}
     hasBin: true
     dev: true
+
+  /primeicons@6.0.1:
+    resolution: {integrity: sha512-KDeO94CbWI4pKsPnYpA1FPjo79EsY9I+M8ywoPBSf9XMXoe/0crjbUK7jcQEDHuc0ZMRIZsxH3TYLv4TUtHmAA==}
+    dev: false
 
   /proxy-from-env@1.1.0:
     resolution: {integrity: sha512-D+zkORCbA9f1tdWRK0RaCR3GPv50cMxcrz4X8k5LTSUD1Dkw47mKJEZQNunItRTkWwgtaUSo1RVFRIG9ZXiFYg==}
