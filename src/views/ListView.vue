@@ -67,9 +67,9 @@ export default {
       this.input = { ...this.getDetail(index) }
     },
     // toggle completed
-    toggleCompleted(index) {
+    toggleCompleted(id, index) {
       const detail = this.getDetail(index)
-      this.editIndex(index, {
+      this.editIndex(id, index, {
         ...detail,
         completed: !detail.completed
       })
@@ -140,7 +140,7 @@ export default {
       <ol class="list overflow-y-auto max-h-[45vh]">
         <template v-for="(item, index) in getList" :key="index">
           <hr class="my-2" />
-          <li @dblclick="() => toggleCompleted(index)" class="mb-2">
+          <li @dblclick="() => toggleCompleted(item?.id, index)" class="mb-2">
             <div class="flex justify-between">
               <div class="flex flex-col">
                 <div class="text-lg font-bold">
