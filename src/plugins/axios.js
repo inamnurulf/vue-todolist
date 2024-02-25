@@ -24,11 +24,16 @@ baseApi.interceptors.request.use(
 )
 
 baseApi.interceptors.response.use(
-  (response) => response.data,
+  (response) => {
+    console.log(response.data)
+
+    return response.data
+  },
   (error) => {
-    switch (error.response.error) {
+    switch (error.response.data.error) {
       case 'jwt expired':
         delCookies('CERT')
+        window.location.reload()
         break
       default:
         break
