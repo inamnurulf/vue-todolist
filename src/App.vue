@@ -14,11 +14,11 @@ d$auth().a$setUser()
 </script>
 
 <template>
-  <div class="md:flex max-w-screen">
+  <div class="md:flex min-w-[100vw]">
     <SideBar />
-    <div class="w-max bg-red-300 h-screen">
+    <div class="w-full bg-red-300 h-screen">
       <div
-        class="bg-slate-300 h-[100%] w-[50vw] flex justify-center items-center rounded-lg"
+        class="bg-slate-300 h-[100%] w-full flex justify-center items-center"
       >
         <RouterView />
       </div>
