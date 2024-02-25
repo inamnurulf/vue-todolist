@@ -36,7 +36,6 @@ export const useListStore = defineStore({
     },
     async editIndex(id, index, data) {
       try {
-        console.log(data)
         await s$todo.edit(id, data)
         this.list[index] = data
       } catch (err) {

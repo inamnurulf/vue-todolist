@@ -54,7 +54,7 @@ export default {
       if (this.editing === false) {
         this.a$add({ ...this.input })
       } else {
-        this.editIndex(this.editing, { ...this.input })
+        this.editIndex(this.input.id, this.editing, { ...this.input })
       }
 
       // call reset form
