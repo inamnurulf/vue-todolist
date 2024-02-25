@@ -9,11 +9,11 @@
       <button
         class="cursor-pointer text-black opacity-50 md:hidden px-3 py-1 text-xl leading-none bg-transparent rounded border border-solid border-transparent"
         type="button"
-        v-on:click="toggleCollapseShow('bg-white m-2 py-3 px-6','hidden')"
+        v-on:click="toggleCollapseShow('bg-white m-2 py-3 px-6', 'hidden')"
         v-bind:class="collapseHide"
       >
         =
-    </button>
+      </button>
       <!-- Brand -->
       <router-link
         class="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
@@ -46,7 +46,7 @@
                 class="cursor-pointer text-black opacity-50 md:hidden px-3 py-1 text-xl leading-none bg-transparent rounded border border-solid border-transparent"
                 v-on:click="toggleCollapseShow('hidden')"
               >
-              x
+                x
               </button>
             </div>
           </div>
@@ -100,6 +100,11 @@
 </template>
 
 <script>
+// import { d$auth } from '@/stores/auth'
+
+// d$auth().a$setUser()
+// const username = computed(() => d$auth().g$user?.id)
+
 export default {
   data() {
     return {
@@ -112,8 +117,6 @@ export default {
       this.collapseShow = classesShow
       this.collapseHide = classesHide
     }
-  },
-  components: {
   }
 }
 </script>

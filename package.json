@@ -9,6 +9,7 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "@duskmoon/vue3-typed-js": "^0.0.4",
     "axios": "^1.6.5",
     "pinia": "^2.1.7",
     "sass": "^1.70.0",

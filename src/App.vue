@@ -14,12 +14,10 @@ d$auth().a$setUser()
 </script>
 
 <template>
-  <div class="md:flex min-w-[100vw]">
+  <div class="md:flex min-w-[100vw] backgroundsection">
     <SideBar />
-    <div class="w-full bg-red-300 h-screen">
-      <div
-        class="bg-slate-300 h-[100%] w-full flex justify-center items-center"
-      >
+    <div class="w-full h-screen">
+      <div class="h-[100%] w-full flex justify-center items-center">
         <RouterView />
       </div>
     </div>
