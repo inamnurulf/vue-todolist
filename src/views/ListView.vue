@@ -16,16 +16,7 @@ export default {
   name: 'ListView',
   data: () => ({
     input: { ...initialInput },
-    editing: false,
-    table: {
-      columns: ['id', 'title', 'description', 'completed'],
-      actions: [
-        {
-          title: 'Handle',
-          event: 'handle-event'
-        }
-      ]
-    }
+    editing: false
   }),
   // declate component
   components: {
@@ -79,9 +70,7 @@ export default {
     toggleCompleted(index) {
       const detail = this.getDetail(index)
       this.editIndex(index, {
-        // pass all entries in detail object
         ...detail,
-        // take completed value then toggle it
         completed: !detail.completed
       })
     },
@@ -130,11 +119,17 @@ export default {
           </div>
         </div>
 
-        <button type="submit" class="bg-blue-500 text-white px-4 py-2 mr-2">
+        <button
+          type="submit"
+          class="bg-blue-500 text-white px-4 py-2 mr-2 rounded-lg"
+        >
           {{ editing !== false ? 'Edit' : 'Add' }}
         </button>
 
-        <button type="reset" class="bg-gray-300 text-gray-700 px-4 py-2">
+        <button
+          type="reset"
+          class="bg-gray-300 text-gray-700 px-4 py-2 rounded-lg"
+        >
           Cancel
         </button>
       </form>
@@ -142,19 +137,18 @@ export default {
     <div class="bg-white rounded-lg mt-4 p-4">
       <h1 class="text-2xl font-bold mb-4">List</h1>
 
-      <ol class="list">
+      <ol class="list overflow-y-auto max-h-[45vh]">
         <template v-for="(item, index) in getList" :key="index">
           <hr class="my-2" />
-          <li
-            @dblclick="() => toggleCompleted(index)"
-            :class="{ 'line-through': item.completed }"
-            class="mb-2"
-          >
+          <li @dblclick="() => toggleCompleted(index)" class="mb-2">
             <div class="flex justify-between">
               <div class="flex flex-col">
                 <div class="text-lg font-bold">
                   {{ item.title }}
-                  <i v-if="item.completed" class="pi pi-check text-lg"></i>
+                  <i
+                    v-if="item.completed"
+                    class="pi pi-check text-lg text-green-500"
+                  ></i>
                 </div>
                 <div class="text-base">
                   {{ item?.description ? `${item.description}` : '' }}
@@ -163,7 +157,7 @@ export default {
               <div class="flex items-center">
                 <button
                   class="pointer hover:bg-red-500 text-red-500 hover:text-white p-1 rounded-lg mx-2"
-                  @click="() => removeIndex(index)"
+                  @click="() => removeIndex(item.id, index)"
                   :disabled="editing !== false"
                 >
                   <i class="pi pi-trash text-lg"></i>
